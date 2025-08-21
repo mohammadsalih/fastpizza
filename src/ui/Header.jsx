@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
-import SearchOrder from '../features/order/SearchOrder';
-import Username from '../features/user/Username';
+import { Link } from "react-router-dom";
+import SearchOrder from "../features/order/SearchOrder";
+import Username from "../features/user/Username";
+import ProtectedRoute from "./ProdectidRoute";
 
 function Header() {
   return (
