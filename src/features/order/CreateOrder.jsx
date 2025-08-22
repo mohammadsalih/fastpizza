@@ -1,30 +1,7 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
 import Button from "../../ui/Button";
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { useSelector } from "react-redux";
 
 function CreateOrder() {
   const navigation = useNavigation();
@@ -33,7 +10,8 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const { username } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
 
   return (
     <div className="px-4 py-6">
@@ -43,7 +21,13 @@ function CreateOrder() {
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">First Name</label>
-          <input className="input grow" type="text" name="customer" required />
+          <input
+            className="input grow"
+            type="text"
+            defaultValue={username}
+            name="customer"
+            required
+          />
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">

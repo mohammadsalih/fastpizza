@@ -55,12 +55,11 @@ const router = createBrowserRouter([
           },
           {
             path: "/order/:orderId",
-            // element: (
-            //   <ProtectedRoute>
-            //     <Order />
-            //   </ProtectedRoute>
-            // ),
-            element: <Order />,
+            element: (
+              <ProtectedRoute>
+                <Order />
+              </ProtectedRoute>
+            ),
             loader: orderLoader,
             errorElement: <Error />,
           },

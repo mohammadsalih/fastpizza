@@ -6,8 +6,6 @@ export async function authLoader() {
   const state = store.getState(); // get the current Redux state
   const username = state.user.username;
 
-  console.log(username);
-
   if (!username) {
     throw redirect("/"); // kicks user to home
   }

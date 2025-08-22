@@ -25,18 +25,13 @@ function CreateUser() {
 
     navigate("/menu");
   }
-  function handleContinue(e) {
-    e.preventDefault();
-
-    navigate("/menu");
-  }
 
   // Case 1: user already set → no form, just the continue button
   if (storedUsername) {
     return (
-      <form onSubmit={handleContinue}>
-        <Button type="primary">Start orderingddd, {storedUsername}</Button>
-      </form>
+      <Button to={"/menu"} type="primary">
+        contenu ordering , {storedUsername}
+      </Button>
     );
   }
 

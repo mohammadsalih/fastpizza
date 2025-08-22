@@ -12,6 +12,8 @@ export async function action({ request }) {
   const data = Object.fromEntries(formData);
   const errors = {};
 
+  console.log(data);
+
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
@@ -20,6 +22,8 @@ export async function action({ request }) {
 
   if (!isValidPhone(data.phone)) errors.phone = "Invalid phone number";
   if (Object.keys(errors).length) return { errors };
+
+  console.log(order);
 
   const newOrder = await createOrder(order);
 
