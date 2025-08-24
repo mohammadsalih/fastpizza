@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function CartOverview() {
-  const { cart } = useSelector((state) => state.cart);
+  const totalQuantity = useSelector((state) =>
+    state.cart.cart.reduce((sum, item) => sum + item.quantity, 0),
+  );
+  const totalPrice = useSelector((state) =>
+    state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0),
+  );
 
-  if (cart.length === 0) return null;
-
-  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+  if (totalPrice === 0) return null;
 
   return (
     <div className="flex items-center justify-between bg-stone-800 px-4 py-4 text-sm text-stone-200 uppercase sm:px-6 md:text-base">

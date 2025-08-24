@@ -1,7 +1,9 @@
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
 import Button from "../../ui/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import EmptyCart from "../cart/EmptyCart";
+import { fetchAddress } from "../user/userSlice";
 
 function CreateOrder() {
   const navigation = useNavigation();
@@ -10,8 +12,14 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   // const [withPriority, setWithPriority] = useState(false);
-  const { username } = useSelector((state) => state.user);
+  const { username, address, status, error } = useSelector(
+    (state) => state.user,
+  );
   const { cart } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  if (cart.length === 0) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">
@@ -42,15 +50,38 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="relative mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
+
           <div className="grow">
-            <input
-              className="input w-full"
-              type="text"
-              name="address"
-              required
-            />
+            <div>
+              <input
+                className="input w-full"
+                type="text"
+                name="address"
+                required
+                defaultValue={address || ""}
+              />
+              {status === "error" && (
+                <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                  {error}
+                </p>
+              )}
+            </div>
+
+            <span className="absolute top-[3px] right-[3px] z-50 md:top-[5px] md:right-[5px]">
+              {address === null && (
+                <Button
+                  type="small"
+                  disabled={status === "loading"}
+                  onClick={() => {
+                    dispatch(fetchAddress());
+                  }}
+                >
+                  {status === "loading" ? "Loading..." : "Find Address"}
+                </Button>
+              )}
+            </span>
           </div>
         </div>
 
@@ -70,7 +101,10 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button disabled={isSubmitting} type="primary">
+          <Button
+            disabled={isSubmitting || status === "loading"}
+            type="primary"
+          >
             {isSubmitting ? "Placing order...." : "Order now"}
           </Button>
         </div>

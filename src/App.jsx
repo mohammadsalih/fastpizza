@@ -9,6 +9,7 @@ import CreateOrder from "./features/order/CreateOrder";
 import { action as createOrderAction } from "./features/order/CreateOrderAction";
 import Order from "./features/order/Order";
 import { loader as orderLoader } from "./features/order/OrderLoader";
+import { action as updateOrderAction } from "./features/order/UpdateOrderAction";
 import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProdectidRoute";
 import { authLoader } from "./loaders/authLoader";
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
                 <Order />
               </ProtectedRoute>
             ),
+            action: updateOrderAction,
             loader: orderLoader,
             errorElement: <Error />,
           },

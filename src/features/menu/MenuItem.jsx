@@ -21,6 +21,8 @@ function MenuItem({ pizza }) {
       pizzaId: id,
       name,
       unitPrice,
+      quantity: 1,
+      totalPrice: unitPrice,
     };
 
     dispatch(addToCart(pizzaItem));
@@ -78,8 +80,8 @@ function MenuItem({ pizza }) {
             </div>
           )}
 
-          {!itemInCart && (
-            <Button onClick={handleAddToCart} disabled={soldOut} type="small">
+          {!itemInCart && !soldOut && (
+            <Button onClick={handleAddToCart} type="small">
               Add to cart
             </Button>
           )}

@@ -10,15 +10,6 @@ const cartSlice = createSlice({
   initialState: initialStateCart,
   reducers: {
     addToCart: {
-      prepare(pizzaItem) {
-        return {
-          payload: {
-            ...pizzaItem,
-            quantity: 1,
-            totalPrice: pizzaItem.unitPrice,
-          },
-        };
-      },
       reducer(state, action) {
         const itemInCart = state.cart.find(
           (item) => item.pizzaId === action.payload.id,
